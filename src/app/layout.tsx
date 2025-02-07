@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
-
+import ThemeProviderWrapper from "./ThemeProviderWrapper";
 
 export const metadata: Metadata = {
   title: "befoo",
   description: "베푸",
-  // 로고 정해지면 주석 풀고 파비콘 추가
   // icons: {
   //   icon: "/logo_TapImg.png",
   // },
@@ -17,9 +16,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko">
+    <html lang="en">
       <body>
-        {children}
+          <ThemeProviderWrapper>
+            {children}
+          </ThemeProviderWrapper>
       </body>
     </html>
   );
