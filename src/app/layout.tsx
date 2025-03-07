@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import ThemeProviderWrapper from "./ThemeProviderWrapper";
+import NavBar from "@/components/Navbar";
 
 export const metadata: Metadata = {
   title: "befoo",
