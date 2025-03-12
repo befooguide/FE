@@ -3,8 +3,6 @@
 import React from "react";
 import { IoIosSearch } from "react-icons/io";
 import styled from "styled-components";
-import logoImg from "../../public/logoImg.png";
-import Image from "next/image";
 
 const SearchContainer = styled.div`
   display: flex;
