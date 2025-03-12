@@ -6,7 +6,7 @@ export const theme = {
     secondary: '#02523B', // green pea 900
 
     neutralLight: '#F5F5F5',
-    neutral: '#B2B2B2',
+    neutral: '#A3A3A3',
     neutralDark: '#545454'
   },
   fontSizes: {

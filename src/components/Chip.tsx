@@ -22,6 +22,7 @@ const Chip: React.FC<ChipProps> = ({ text, color, backgroundColor, width, border
 export default Chip;
 
 
+
 const ChipContainer = styled.div<{backgroundColor?: string, width?: string, border?: string}>`
   display: flex;
   width: ${(props) => props.width || '4.5625rem'};
