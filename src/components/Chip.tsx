@@ -8,11 +8,12 @@ interface ChipProps {
   color?: string;
   backgroundColor?: string;
   width?: string;
+  border?: string;
 }
 
-const Chip: React.FC<ChipProps> = ({ text, color, backgroundColor, width }) => {
+const Chip: React.FC<ChipProps> = ({ text, color, backgroundColor, width, border }) => {
   return (
-    <ChipContainer backgroundColor={backgroundColor} width={width}>
+    <ChipContainer backgroundColor={backgroundColor} width={width} border={border}>
       <Text color={color}>{text}</Text>
     </ChipContainer>
   );
@@ -21,15 +22,17 @@ const Chip: React.FC<ChipProps> = ({ text, color, backgroundColor, width }) => {
 export default Chip;
 
 
-const ChipContainer = styled.div<{backgroundColor?: string, width?: string}>`
+
+const ChipContainer = styled.div<{backgroundColor?: string, width?: string, border?: string}>`
   display: flex;
-  width: ${(props) => props.color || '4.5625rem'};
+  width: ${(props) => props.width || '4.5625rem'};
   height: 1.875rem;
-  padding: 0.4375rem 0.6875rem;
   justify-content: center;
   align-items: center;
+  padding: 0.4375rem 0.5625rem;
   gap: 0.625rem;
   border-radius: 6.25rem;
+  border: ${(props) => props.border || 'none'};
   background-color: ${(props) => props.backgroundColor || props.theme.colors.neutralLight};
 `;
 
@@ -41,6 +44,6 @@ const Text = styled.span<{color?: string}>`
   font-family: "SF Pro", sans-serif;
   font-size: ${(props) => props.theme.fontSizes.small};
   font-style: normal;
-  font-weight: 590;
+  font-weight: 700;
   line-height: 1rem;
 `;

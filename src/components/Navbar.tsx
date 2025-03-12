@@ -66,8 +66,8 @@ export default NavBar;
 
 const Nav = styled.nav`
   display: flex;
-  position: absolute;
-  bottom: 1.31rem;
+  position: fixed;
+  bottom: 0;
   width: 25.125rem;
   height: 3.75rem;
   background: #fff;
