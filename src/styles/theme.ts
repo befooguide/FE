@@ -10,9 +10,9 @@ export const theme = {
     neutralDark: '#545454'
   },
   fontSizes: {
-    small: '12px',
-    medium: '15px',
-    large: '20px',
+    small: '0.75rem',
+    medium: '0.9375rem',
+    large: '1.4375rem',
     accent: '35px'
   },
 }
