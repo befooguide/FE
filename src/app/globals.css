@@ -28,7 +28,7 @@ body {
 body {
   background: var(--background);
   font-family: var(--font-primary);
-  padding-top: 2.64rem;
+  /* padding-top: 2.64rem; */
   padding-bottom: 2.13rem;
 }
 

@@ -4,19 +4,22 @@ import React from "react";
 import styled from "styled-components";
 import {theme} from "@/styles/theme";
 
+interface TextareaProps {
+	$height?: string;
+}
 
-export default function Textarea () {
+const Textarea: React.FC<TextareaProps> = ({ $height }) => {
   return (
-    <Container />
+    <Container $height={$height} />
   );
 };
 
+export default Textarea;
 
-
-const Container = styled.textarea`
+const Container = styled.textarea<TextareaProps>`
   display: flex;
   width: 21.1875rem;
-  height: 9.25rem;
+  height: ${(props) => props.$height || '9.25rem'};
   padding: 0.7rem;
   justify-content: center;
   align-items: center;

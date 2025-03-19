@@ -16,9 +16,11 @@ interface RestaurantCardProps {
 const RestaurantCard: React.FC<RestaurantCardProps> = ({ name, location, time }) => {
   return (
     <RestaurantCardContainer>
+            <CustomRow $justifycontent="flex-start"></CustomRow>
       <CustomRow $gap="0.94rem" $margin="0 0 1rem 0" $justifycontent="flex-start">
       <Title>{name}</Title>
       <Chip text="공식 추천" color="#ffffff" backgroundColor={theme.colors.primary} />
+      {/* <img src="/icons/bookmark" /> */}
       </CustomRow>
       <Sub>{location}</Sub>
       <Sub>{time}</Sub>
