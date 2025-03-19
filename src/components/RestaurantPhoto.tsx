@@ -2,27 +2,29 @@
 
 import React, { useState } from "react";
 import styled from "styled-components";
-import { theme } from "@/styles/theme";
 
-const RestaurantPhoto = () => {
-  const [imageSrc, setImageSrc] = useState<string | null>(null);
+interface RestaurantPhotoProps {
+  place: number;
+  imageSrc: string | null;
+  onPhotoChange: (place: number, imageSrc: string | null) => void;
+}
 
-
+const RestaurantPhoto: React.FC<RestaurantPhotoProps> = ({ place, imageSrc, onPhotoChange }) => {
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setImageSrc(reader.result as string); 
+        onPhotoChange(place, reader.result as string); // 해당 장소에 맞는 사진을 업데이트
       };
-      reader.readAsDataURL(file); 
+      reader.readAsDataURL(file);
     }
   };
 
   return (
-    <Container onClick={() => document.getElementById("fileInput")?.click()}>
+    <Container onClick={() => document.getElementById(`fileInput-${place}`)?.click()}>
       <input
-        id="fileInput"
+        id={`fileInput-${place}`} // 각 장소에 고유한 id 부여
         type="file"
         accept="image/*"
         onChange={handleFileChange}
@@ -30,7 +32,7 @@ const RestaurantPhoto = () => {
       />
       
       {imageSrc ? (
-        <Image src={imageSrc} alt="Restaurant" />
+        <Image src={imageSrc} alt={`Restaurant ${place}`} />
       ) : (
         <PlaceholderText>사진 추가하기</PlaceholderText>
       )}
@@ -61,8 +63,8 @@ const Container = styled.div`
 `;
 
 const Image = styled.img`
-  width: 100%; 
-  height: 100%; 
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   border-radius: 0.625rem;
 `;
