@@ -7,11 +7,13 @@ interface ButtonProps {
   text: string;
   color?: string;
   backgroundColor?: string;
+  icon?: string;
 }
 
-const Button: React.FC<ButtonProps> = ({ text, color, backgroundColor }) => {
+const Button: React.FC<ButtonProps> = ({ text, color, backgroundColor, icon }) => {
   return (
     <ButtonContainer backgroundColor={backgroundColor}>
+      {icon && <Icon src={icon} alt="icon" />}
       <Text color={color}>{text}</Text>
     </ButtonContainer>
   );
@@ -40,4 +42,10 @@ const Text = styled.span<{color?: string}>`
   font-style: normal;
   font-weight: 500;
   line-height: 1.5rem;
+`;
+
+const Icon = styled.img`
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-right: 0.75rem;
 `;
