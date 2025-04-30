@@ -6,11 +6,12 @@ import {theme} from "@/styles/theme";
 
 interface TextareaProps {
 	$height?: string;
+  $width?: string;
 }
 
-const Textarea: React.FC<TextareaProps> = ({ $height }) => {
+const Textarea: React.FC<TextareaProps> = ({ $height, $width }) => {
   return (
-    <Container $height={$height} />
+    <Container $height={$height} $width={$width} />
   );
 };
 
@@ -18,7 +19,7 @@ export default Textarea;
 
 const Container = styled.textarea<TextareaProps>`
   display: flex;
-  width: 21.1875rem;
+  width: ${(props) => props.$width || '21.1875rem'};
   height: ${(props) => props.$height || '9.25rem'};
   padding: 0.7rem;
   justify-content: center;

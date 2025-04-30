@@ -22,7 +22,7 @@ const FieldWithIcon: React.FC<FieldWithIconProps> = ({ type, color }) => {
 export default FieldWithIcon;
 
 
-const Container = styled.div<{backgroundColor?: string, width?: string}>`
+const Container = styled.div<{backgroundcolor?: string, width?: string}>`
   display: flex;
   width: 21.1875rem;
   height: 5rem;

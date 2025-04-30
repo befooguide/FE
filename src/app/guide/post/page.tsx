@@ -24,7 +24,7 @@ export default function Home() {
         <PlaceInfo num="1"/>
       </CustomColumn>
       <div style={{ marginTop: "4.5rem" }}>
-        <Button text="가이드 생성하기" backgroundColor={theme.colors.primary} color="#ffffff" />
+        <Button text="가이드 생성하기" backgroundcolor={theme.colors.primary} color="#ffffff" />
       </div>
     </Container>
   )

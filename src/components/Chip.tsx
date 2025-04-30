@@ -6,27 +6,17 @@ import styled from "styled-components";
 interface ChipProps {
   text: string;
   color?: string;
-  backgroundColor?: string;
+  backgroundcolor?: string;
   width?: string;
   border?: string;
   onClick?: () => void;
 }
 
-const Chip: React.FC<ChipProps> = ({
-  text,
-  color,
-  backgroundColor,
-  width,
-  border,
-  onClick,
-}) => {
+
+const Chip: React.FC<ChipProps> = ({ text, color, backgroundcolor, width, border, onClick }) => {
   return (
-    <ChipContainer
-      backgroundColor={backgroundColor}
-      width={width}
-      border={border}
-      onClick={onClick}
-    >
+    <ChipContainer backgroundcolor={backgroundcolor} width={width} border={border} onClick={onClick}>
+
       <Text color={color}>{text}</Text>
     </ChipContainer>
   );
@@ -34,11 +24,11 @@ const Chip: React.FC<ChipProps> = ({
 
 export default Chip;
 
-const ChipContainer = styled.div<{
-  backgroundColor?: string;
-  width?: string;
-  border?: string;
-}>`
+
+
+
+const ChipContainer = styled.div<{backgroundcolor?: string, width?: string, border?: string}>`
+
   display: flex;
   width: ${(props) => props.width || "4.5625rem"};
   height: 1.875rem;
@@ -47,9 +37,10 @@ const ChipContainer = styled.div<{
   padding: 0.4375rem 0.5625rem;
   gap: 0.625rem;
   border-radius: 6.25rem;
-  border: ${(props) => props.border || "none"};
-  background-color: ${(props) =>
-    props.backgroundColor || props.theme.colors.neutralLight};
+
+  border: ${(props) => props.border || 'none'};
+  background-color: ${(props) => props.backgroundcolor || props.theme.colors.neutralLight};
+
 `;
 
 const Text = styled.span<{ color?: string }>`
