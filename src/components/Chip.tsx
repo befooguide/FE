@@ -6,14 +6,14 @@ import styled from "styled-components";
 interface ChipProps {
   text: string;
   color?: string;
-  backgroundColor?: string;
+  backgroundcolor?: string;
   width?: string;
   border?: string;
 }
 
-const Chip: React.FC<ChipProps> = ({ text, color, backgroundColor, width, border }) => {
+const Chip: React.FC<ChipProps> = ({ text, color, backgroundcolor, width, border }) => {
   return (
-    <ChipContainer backgroundColor={backgroundColor} width={width} border={border}>
+    <ChipContainer backgroundcolor={backgroundcolor} width={width} border={border}>
       <Text color={color}>{text}</Text>
     </ChipContainer>
   );
@@ -23,7 +23,7 @@ export default Chip;
 
 
 
-const ChipContainer = styled.div<{backgroundColor?: string, width?: string, border?: string}>`
+const ChipContainer = styled.div<{backgroundcolor?: string, width?: string, border?: string}>`
   display: flex;
   width: ${(props) => props.width || '4.5625rem'};
   height: 1.875rem;
@@ -33,7 +33,7 @@ const ChipContainer = styled.div<{backgroundColor?: string, width?: string, bord
   gap: 0.625rem;
   border-radius: 6.25rem;
   border: ${(props) => props.border || 'none'};
-  background-color: ${(props) => props.backgroundColor || props.theme.colors.neutralLight};
+  background-color: ${(props) => props.backgroundcolor || props.theme.colors.neutralLight};
 `;
 
 

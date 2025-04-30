@@ -50,8 +50,8 @@ const PlaceInfo: React.FC<PlaceInfoProps> = ({ num }) => {
           <Container>
             <CustomRow $justifycontent="space-between" $margin="0.56rem">
               <CustomRow $gap="0.62rem">
-                <Chip text={( place +1 ).toString()} width="1.875rem" color={theme.colors.neutral} backgroundColor={theme.colors.neutralLight} />
-                <Chip text={`장소 ${place} 선택`} width="6.625rem" color="#ffffff" backgroundColor={theme.colors.primary} />
+                <Chip text={( place +1 ).toString()} width="1.875rem" color={theme.colors.neutral} backgroundcolor={theme.colors.neutralLight} />
+                <Chip text={`장소 ${place} 선택`} width="6.625rem" color="#ffffff" backgroundcolor={theme.colors.primary} />
               </CustomRow>
               <Stepper addPlace={addPlace} removePlace={removePlace} />
             </CustomRow>

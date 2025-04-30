@@ -1,11 +1,8 @@
 "use client"
 
-import Chip from "@/components/Chip"
 import React from "react"
 import styled from "styled-components"
-import { theme } from "@/styles/theme"
 import CustomRow from "@/components/CustomRow"
-import CustomColumn from "@/components/CustomColumn"
 
 
 export default function List() {

@@ -14,7 +14,7 @@ export default function InfoArea() {
     <Container>
       <CustomRow $margin="0 0 1rem 0.5rem" $justifycontent="space-between">
         <Title>닉네임</Title>
-        <Chip text="로그아웃" color="#ffffff" backgroundColor={theme.colors.neutral} />
+        <Chip text="로그아웃" color="#ffffff" backgroundcolor={theme.colors.neutral} />
       </CustomRow>
       <Divider />
       <CustomRow $margin="0 0 1rem 0.5rem" $justifycontent="space-between">

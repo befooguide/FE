@@ -6,13 +6,13 @@ import styled from "styled-components";
 interface ButtonProps {
   text: string;
   color?: string;
-  backgroundColor?: string;
+  backgroundcolor?: string;
   icon?: string;
 }
 
-const Button: React.FC<ButtonProps> = ({ text, color, backgroundColor, icon }) => {
+const Button: React.FC<ButtonProps> = ({ text, color, backgroundcolor, icon }) => {
   return (
-    <ButtonContainer backgroundColor={backgroundColor}>
+    <ButtonContainer backgroundcolor={backgroundcolor}>
       {icon && <Icon src={icon} alt="icon" />}
       <Text color={color}>{text}</Text>
     </ButtonContainer>
@@ -22,7 +22,7 @@ const Button: React.FC<ButtonProps> = ({ text, color, backgroundColor, icon }) =
 export default Button;
 
 
-const ButtonContainer = styled.div<{backgroundColor?: string}>`
+const ButtonContainer = styled.div<{backgroundcolor?: string}>`
   display: flex;
   width: 21.375rem;
   height: 3.375rem;
@@ -32,7 +32,7 @@ const ButtonContainer = styled.div<{backgroundColor?: string}>`
   gap: 1.25rem;
   flex-shrink: 0;
   border-radius: 2.125rem;
-  background-color: ${(props) => props.backgroundColor || props.theme.colors.neutralLight};
+  background-color: ${(props) => props.backgroundcolor || props.theme.colors.neutralLight};
 `;
 
 

@@ -12,7 +12,7 @@ interface StarWithLabelProps {
   count: number;
   chipBorder?: string;
   chipColor?: string;
-  chipBackgroundColor?: string;
+  chipbackgroundColor?: string;
   margin?: string;
 }
 
@@ -21,35 +21,38 @@ const StarWithLabel: React.FC<StarWithLabelProps> = ({
   count,
   chipBorder = "1px solid #DEDEDE",
   chipColor = theme.colors.neutral,
-  chipBackgroundColor = "#Ffffff", 
+  chipbackgroundColor = "#Ffffff", 
   margin = "0",
 }) => {
   const renderStarChips = () => {
     const starItems = [];
     for (let i = 0; i < count; i++) {
       starItems.push(
-        <CustomRow $justifycontent='space-between' $width='95%' $margin={margin}>
+        <CustomRow
+          key={`star-row-${i}`} // ✅ 고유한 key 추가
+          $justifycontent="space-between"
+          $width="95%"
+          $margin={margin}
+        >
           <Chip
             text={texts[i]}
             width="auto"
-            color={chipColor} 
-            backgroundColor={chipBackgroundColor} 
-            border={chipBorder} 
+            color={chipColor}
+            backgroundcolor={chipbackgroundColor}
+            border={chipBorder}
           />
           <StarContainer>
             <CustomRow $gap="0.25rem">
-              {Array(5)
-                .fill(
+              {Array.from({ length: 5 }).map((_, index) => (
+                <div key={`star-${i}-${index}`}>
                   <img
                     src="/icons/star.svg"
                     alt="별점 평가하기"
                     width="35"
                     height="35"
                   />
-                )
-                .map((star, index) => (
-                  <div key={index}>{star}</div>
-                ))}
+                </div>
+              ))}
             </CustomRow>
           </StarContainer>
         </CustomRow>
@@ -57,13 +60,14 @@ const StarWithLabel: React.FC<StarWithLabelProps> = ({
     }
     return starItems;
   };
+  
 
   return <Container>{renderStarChips()}</Container>;
 };
 
 export default StarWithLabel;
 
-const Container = styled.div<{ backgroundColor?: string, width?: string }>`
+const Container = styled.div<{ backgroundcolor?: string, width?: string }>`
   display: flex;
   flex-direction: column;
   width: 21.1875rem;

@@ -21,7 +21,7 @@ export default function Review() {
           texts={['맛', '메뉴 폭', '영양성분 고지', '건강고민 해결', '총 평점']}
           count={5}
           chipColor={theme.colors.neutral}
-          chipBackgroundColor={theme.colors.neutralLight}
+          chipbackgroundColor={theme.colors.neutralLight}
           chipBorder="none"
           margin="0.25rem 0"
         />
@@ -33,7 +33,7 @@ export default function Review() {
         <RestaurantCard name="식당 이름" location="위치" time="영업 시간"/>
       </CustomColumn>
       <div style={{ marginTop: "4.5rem" }}>
-        <Button text="평가 수정하기" backgroundColor={theme.colors.primary} color="#ffffff"/>
+        <Button text="평가 수정하기" backgroundcolor={theme.colors.primary} color="#ffffff"/>
         </div>
     </Container>
   )

@@ -23,8 +23,8 @@ const ChipWithLabel: React.FC<ChipWithLabelProps> = ({
   return (
     <Container>
       <CustomRow $gap="0.62rem" $margin="0.56rem">
-        <Chip text={num} width={width} color={theme.colors.neutral} backgroundColor={theme.colors.neutralLight}/>
-        <Chip text={text} width="6.625rem" color="#ffffff" backgroundColor={theme.colors.primary}/>
+        <Chip text={num} width={width} color={theme.colors.neutral} backgroundcolor={theme.colors.neutralLight}/>
+        <Chip text={text} width="7rem" color="#ffffff" backgroundcolor={theme.colors.primary}/>
       </CustomRow>
       {children}
     </Container>
