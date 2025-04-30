@@ -4,9 +4,10 @@ import React from "react";
 import GuideCard from "./GuideCard";
 import styled from "styled-components";
 import Chip from "./Chip";
+import { useRouter } from "next/navigation";
 
 interface GuideSectionProps {
-  title: string;
+  guidePart: string;
   showAllButton?: boolean;
   guides: {
     id: string;
@@ -17,55 +18,67 @@ interface GuideSectionProps {
 }
 
 const SectionContainer = styled.div`
-  margin: 24px 0 16px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 `;
 
 const SectionHeader = styled.div`
   display: flex;
-  //   justify-content: space-between;
   align-items: center;
-  padding: 0 16px;
-  margin-bottom: 12px;
-  gap: 1rem;
+  margin-top: 1rem;
 `;
 
 const SectionTitle = styled.h2`
-  font-size: 18px;
+  font-size: 23px;
   font-weight: 700;
-  margin: 0;
-`;
-
-const ViewAllButton = styled.button`
-  font-size: 14px;
-  color: #6b7280;
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
+  padding: 4px 8px;
+  margin-left: 1rem;
 `;
 
 const CardsContainer = styled.div`
   display: flex;
-  overflow-x: auto;
-  padding-bottom: 16px;
+  flex-direction: row;
   padding-left: 16px;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE and Edge */
-
+  gap: 12px;
+  scroll-snap-type: x mandatory;
+  overflow-x: auto;
+  height: 23rem;
+  scrollbar-width: none;
+  white-space: nowrap;
+  overscroll-behavior-x: contain;
+  -ms-overflow-style: none;
+  scroll-behavior: smooth;
   &::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Opera */
+    display: none;
+  }
+  > * {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
   }
 `;
 export default function GuideSection({
-  title,
+  guidePart,
   showAllButton = true,
   guides,
 }: GuideSectionProps) {
+  const router = useRouter();
+
+  const handleShowAllClick = () => {
+    if (guidePart === "공식 가이드") {
+      router.push("/guide/official");
+    } else if (guidePart === "사용자 가이드") {
+      router.push("/guide/user");
+    }
+  };
+
   return (
     <SectionContainer>
       <SectionHeader>
-        <SectionTitle>{title}</SectionTitle>
-        {showAllButton && <Chip text="전체보기"></Chip>}
+        <SectionTitle>{guidePart}</SectionTitle>
+        {showAllButton && (
+          <Chip text="전체보기" onClick={handleShowAllClick}></Chip>
+        )}
       </SectionHeader>
       <CardsContainer>
         {guides.map((guide) => (
