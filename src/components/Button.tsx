@@ -8,11 +8,12 @@ interface ButtonProps {
   color?: string;
   backgroundcolor?: string;
   icon?: string;
+  onClick?: () => void; 
 }
 
-const Button: React.FC<ButtonProps> = ({ text, color, backgroundcolor, icon }) => {
+const Button: React.FC<ButtonProps> = ({ text, color, backgroundcolor, icon, onClick }) => {
   return (
-    <ButtonContainer backgroundcolor={backgroundcolor}>
+    <ButtonContainer backgroundcolor={backgroundcolor} onClick={onClick}>
       {icon && <Icon src={icon} alt="icon" />}
       <Text color={color}>{text}</Text>
     </ButtonContainer>
@@ -33,6 +34,7 @@ const ButtonContainer = styled.div<{backgroundcolor?: string}>`
   flex-shrink: 0;
   border-radius: 2.125rem;
   background-color: ${(props) => props.backgroundcolor || props.theme.colors.neutralLight};
+  cursor: pointer; 
 `;
 
 
