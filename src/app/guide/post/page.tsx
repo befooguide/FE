@@ -10,7 +10,10 @@ import ChipWithLabel from "@/components/ChipWithLabel";
 import Textarea from "@/components/Textarea";
 import PlaceInfo from "./components/PlaceInfo";
 
-export default function Home() {
+export default function GuidePost() {
+
+
+
   return (
     <Container>
       <Title>나만의 가이드를 공유해주세요</Title>
@@ -24,7 +27,7 @@ export default function Home() {
         <PlaceInfo num="1"/>
       </CustomColumn>
       <div style={{ marginTop: "4.5rem" }}>
-        <Button text="가이드 생성하기" backgroundcolor={theme.colors.primary} color="#ffffff" />
+        <Button text="가이드 생성하기" backgroundcolor={theme.colors.primary} color="#ffffff"/>
       </div>
     </Container>
   )
