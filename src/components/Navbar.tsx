@@ -10,7 +10,6 @@ const NavBar: React.FC = () => {
   const pathname = usePathname();
 
   const getActiveIcon = (path: string) => {
-    // 최상위 라우팅이 같은 경우도 포함하도록 수정
     return pathname?.startsWith(path);
   };
 
@@ -21,7 +20,7 @@ const NavBar: React.FC = () => {
   return (
     <Nav>
       <IconContainer 
-        active={getActiveIcon("/home")}
+        $active={getActiveIcon("/home")}
         onClick={() => handleNavigation('/home')}
       >
         <Image src="/icons/home.svg" alt="Home" width={40} height={40} />
@@ -29,7 +28,7 @@ const NavBar: React.FC = () => {
       </IconContainer>
 
       <IconContainer 
-        active={getActiveIcon('/map')}
+        $active={getActiveIcon('/map')}
         onClick={() => handleNavigation('/map')}
       >
         <Image src="/icons/map.svg" alt="Map" width={40} height={40} />
@@ -37,14 +36,14 @@ const NavBar: React.FC = () => {
       </IconContainer>
 
       <IconContainer 
-        active={getActiveIcon('/guide/post')}
+        $active={getActiveIcon('/guide/post')}
         onClick={() => handleNavigation('/guide/post')}
       >
         <Image src="/icons/plus.svg" alt="Plus" width={38} height={38} />
       </IconContainer>
 
       <IconContainer 
-        active={getActiveIcon('/archive')}
+        $active={getActiveIcon('/archive')}
         onClick={() => handleNavigation('/archive')}
       >
         <Image src="/icons/saved.svg" alt="Saved" width={40} height={40} />
@@ -52,7 +51,7 @@ const NavBar: React.FC = () => {
       </IconContainer> 
 
       <IconContainer 
-        active={getActiveIcon('/mypage')}
+        $active={getActiveIcon('/mypage')}
         onClick={() => handleNavigation('/mypage')}
       >
         <Image src="/icons/user.svg" alt="User" width={17} height={17} />
@@ -77,7 +76,7 @@ const Nav = styled.nav`
 `;
 
 interface IconContainerProps {
-  active?: boolean;
+  $active?: boolean;
 }
 
 const IconContainer = styled.div<IconContainerProps>`
@@ -86,28 +85,20 @@ const IconContainer = styled.div<IconContainerProps>`
   justify-content: center;
   align-items: center;
   position: relative;
-  flex-direction: ${(props) => (props.active ? 'column' : 'row')};
+  flex-direction: ${(props) => (props.$active ? 'column' : 'row')};
   cursor: pointer;
 
-  &:nth-child(1) {
-    width: 2.5rem;
-    height: 2.5rem;
-  }
-  &:nth-child(2) {
-    width: 2.5rem;
-    height: 2.5rem;
-  }
-  &:nth-child(3) {
-    width: 2.375rem;
-    height: 2.375rem;
-  }
-  &:nth-child(4) {
-    width: 2.5rem;
-    height: 2.5rem;
-  }
+  &:nth-child(1),
+  &:nth-child(2),
+  &:nth-child(4),
   &:nth-child(5) {
     width: 2.5rem;
     height: 2.5rem;
+  }
+
+  &:nth-child(3) {
+    width: 2.375rem;
+    height: 2.375rem;
   }
 `;
 
