@@ -167,8 +167,6 @@ const StarWithLabel: React.FC<StarWithLabelProps> = ({
 
 export default StarWithLabel;
 
-// 스타일 정의
-
 const Container = styled.div`
   display: flex;
   flex-direction: column;
