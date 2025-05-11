@@ -10,10 +10,10 @@ const authService = {
   },
 
   // 로그아웃
-  // logout: async () => {
-  //   const response = await axiosInstance.post('/auth/logout');
-  //   return response.data;
-  // },
+  logout: async () => {
+    const response = await axiosInstance.post('/logout');
+    return response.data;
+  },
 
   // 프로필 조회
   getCurrentUser: async () => {

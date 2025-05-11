@@ -43,7 +43,7 @@ axiosInstance.interceptors.response.use(
       try {
         // 리프레시 토큰 요청
         const response = await axios.post(
-          `${API_BASE_URL}/api/`, // API 만들어지면 엔드포인트 추가
+          `${API_BASE_URL}/`, // API 만들어지면 엔드포인트 추가
           {},
           { 
             withCredentials: true,
