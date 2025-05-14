@@ -18,8 +18,8 @@ const CardContainer = styled.div`
   border-radius: 8px;
   overflow: hidden;
   margin-right: 12px;
-  width: 160px;
-  height: 240px;
+  width: 256px;
+  height: 348px;
 `;
 
 const BookmarkButton = styled.div`
