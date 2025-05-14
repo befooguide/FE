@@ -60,13 +60,17 @@ const LoadingMessage = styled.div`
   z-index: 5;
 `;
 
-function KakaoMap({ markers = [], selectedMarkerId = null, onMarkerClick = () => {} }: KakaoMapProps) {
+function KakaoMap({
+  markers = [],
+  selectedMarkerId = null,
+  onMarkerClick = () => {},
+}: KakaoMapProps) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<any>(null);
   const markersRef = useRef<{ [key: number]: any }>({});
-  
+
   // 디버깅 용도로 선택된 마커ID와 마커 데이터 로깅
   useEffect(() => {
     console.log("현재 선택된 마커 ID:", selectedMarkerId);
@@ -161,11 +165,12 @@ function KakaoMap({ markers = [], selectedMarkerId = null, onMarkerClick = () =>
 
           // 기본 중심점 (서울 시청)
           const defaultCenter = new window.kakao.maps.LatLng(37.5665, 126.978);
-          
+
           // 마커가 있으면 첫 번째 마커의 위치를 중심으로 설정
-          const centerPosition = markers.length > 0 
-            ? new window.kakao.maps.LatLng(markers[0].lat, markers[0].lng)
-            : defaultCenter;
+          const centerPosition =
+            markers.length > 0
+              ? new window.kakao.maps.LatLng(markers[0].lat, markers[0].lng)
+              : defaultCenter;
 
           // 지도 옵션 설정 - 줌 레벨 3으로 명시적 설정
           const options = {
@@ -185,18 +190,20 @@ function KakaoMap({ markers = [], selectedMarkerId = null, onMarkerClick = () =>
           // 모든 마커를 포함하는 영역 생성
           if (markers.length > 1) {
             // 마커가 여러 개일 경우 모든 마커를 포함하는 영역 계산
-            const bounds = new window.kakao.maps.LatLngBounds(); 
-            
-            markers.forEach(marker => {
-              bounds.extend(new window.kakao.maps.LatLng(marker.lat, marker.lng));
+            const bounds = new window.kakao.maps.LatLngBounds();
+
+            markers.forEach((marker) => {
+              bounds.extend(
+                new window.kakao.maps.LatLng(marker.lat, marker.lng)
+              );
             });
-            
+
             // 지도가 모든 마커를 포함하도록 영역 설정
             map.setBounds(bounds);
-            
+
             console.log("지도가 모든 마커를 표시하도록 영역 설정됨");
             console.log("경계 설정 후 줌 레벨:", map.getLevel());
-            
+
             // 경계 설정 후에도 줌 레벨 3으로 강제 설정
             map.setLevel(3);
             console.log("줌 레벨 3으로 강제 설정됨:", map.getLevel());
@@ -212,16 +219,20 @@ function KakaoMap({ markers = [], selectedMarkerId = null, onMarkerClick = () =>
           }, 100);
 
           // 맵 클릭 이벤트 등록
-          window.kakao.maps.event.addListener(map, "click", (mouseEvent: any) => {
-            const latLng = mouseEvent.latLng;
-            console.log(
-              `클릭된 좌표: 위도(${latLng.getLat()}), 경도(${latLng.getLng()})`
-            );
-          });
-          
+          window.kakao.maps.event.addListener(
+            map,
+            "click",
+            (mouseEvent: any) => {
+              const latLng = mouseEvent.latLng;
+              console.log(
+                `클릭된 좌표: 위도(${latLng.getLat()}), 경도(${latLng.getLng()})`
+              );
+            }
+          );
+
           // 줌 변경 이벤트 감지
-          window.kakao.maps.event.addListener(map, 'zoom_changed', function() {
-            console.log('줌 레벨이 변경됨:', map.getLevel());
+          window.kakao.maps.event.addListener(map, "zoom_changed", function () {
+            console.log("줌 레벨이 변경됨:", map.getLevel());
           });
 
           resolve(map);
@@ -268,7 +279,11 @@ function KakaoMap({ markers = [], selectedMarkerId = null, onMarkerClick = () =>
         });
       } catch (err) {
         console.error("카카오맵 설정 중 오류:", err);
-        setError(`카카오맵 초기화 실패: ${err instanceof Error ? err.message : '알 수 없는 오류'}`);
+        setError(
+          `카카오맵 초기화 실패: ${
+            err instanceof Error ? err.message : "알 수 없는 오류"
+          }`
+        );
         setLoading(false);
       }
     };
@@ -303,31 +318,32 @@ function KakaoMap({ markers = [], selectedMarkerId = null, onMarkerClick = () =>
       // 기존 마커 참조 객체
       const currentMarkers = markersRef.current;
       const map = mapInstanceRef.current;
-      
+
       // 새로운 마커 참조 객체 생성
       const newMarkers: { [key: number]: any } = {};
-  
+
       // 마커 생성 및 업데이트
       markers.forEach((markerData) => {
         const { id, lat, lng, name, isOfficial } = markerData;
-        
+
         if (!lat || !lng) {
           console.warn(`마커 ${id}에 유효한 좌표가 없습니다.`, markerData);
           return;
         }
-        
+
         // 마커 위치 생성
         const position = new window.kakao.maps.LatLng(lat, lng);
-        
+
         // 마커 이미지 설정 (공식/개인 마커에 따라 다른 이미지)
         let markerImage;
         if (isOfficial) {
           // 공식 마커용 이미지 (별 모양)
-          const imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+          const imageSrc =
+            "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
           const imageSize = new window.kakao.maps.Size(24, 35);
           markerImage = new window.kakao.maps.MarkerImage(imageSrc, imageSize);
         }
-        
+
         // 기존 마커가 없으면 새로 생성
         if (!currentMarkers[id]) {
           const marker = new window.kakao.maps.Marker({
@@ -336,51 +352,51 @@ function KakaoMap({ markers = [], selectedMarkerId = null, onMarkerClick = () =>
             title: name || `마커 ${id}`,
             image: markerImage,
           });
-          
+
           // 마커 클릭 이벤트 추가
-          window.kakao.maps.event.addListener(marker, "click", function() {
+          window.kakao.maps.event.addListener(marker, "click", function () {
             console.log(`마커 클릭됨: ${name || `마커 ${id}`} (ID: ${id})`);
             console.log(`클릭 전 지도 줌 레벨: ${map.getLevel()}`);
-            
+
             try {
               // 명시적으로 줌 레벨 설정 (중요: 숫자가 작을수록 더 확대됨)
-              map.setLevel(3, {animate: true});
-              
+              map.setLevel(3, { animate: true });
+
               // 중심 이동 후 줌 레벨 로깅
               console.log(`중심 이동 후 지도 줌 레벨: ${map.getLevel()}`);
-              
+
               // 클릭 이벤트 콜백 호출 전 중심 이동
               map.setCenter(position);
-              
+
               // 클릭 이벤트 콜백 호출
               onMarkerClick(id);
             } catch (e) {
               console.error("마커 클릭 이벤트 처리 중 오류:", e);
             }
           });
-          
+
           newMarkers[id] = marker;
           console.log(`새 마커 생성: ${name || `마커 ${id}`}`);
         } else {
           // 기존 마커가 있으면 위치만 업데이트
           currentMarkers[id].setPosition(position);
-          
+
           // 마커 이미지 업데이트 (필요한 경우)
           if (markerImage) {
             currentMarkers[id].setImage(markerImage);
           }
-          
+
           // 타이틀 업데이트 (필요한 경우)
           if (name && currentMarkers[id].getTitle() !== name) {
             currentMarkers[id].setTitle(name);
           }
-          
+
           newMarkers[id] = currentMarkers[id];
           delete currentMarkers[id]; // 처리된 마커는 제거
           console.log(`마커 업데이트: ${name || `마커 ${id}`}`);
         }
       });
-      
+
       // 남은 마커들 (더 이상 데이터에 없는 마커)은 지도에서 제거
       Object.values(currentMarkers).forEach((marker) => {
         if (marker) {
@@ -388,43 +404,56 @@ function KakaoMap({ markers = [], selectedMarkerId = null, onMarkerClick = () =>
           console.log("사용하지 않는 마커 제거");
         }
       });
-      
+
       // 마커 참조 업데이트
       markersRef.current = newMarkers;
       console.log("마커 업데이트 완료", Object.keys(newMarkers).length);
     } catch (e) {
       console.error("마커 업데이트 중 오류:", e);
     }
-    
   }, [markers, onMarkerClick]);
-  
+
   // 선택된 마커 효과
   useEffect(() => {
-    if (!mapInstanceRef.current || !window.kakao || !window.kakao.maps || selectedMarkerId === null) {
+    if (
+      !mapInstanceRef.current ||
+      !window.kakao ||
+      !window.kakao.maps ||
+      selectedMarkerId === null
+    ) {
       return;
     }
-    
+
     console.log(`선택된 마커 ID: ${selectedMarkerId} 처리 시작`);
-    
+
     try {
       // 선택된 마커 찾기
-      const selectedMarker = markers.find(marker => marker.id === selectedMarkerId);
-      
+      const selectedMarker = markers.find(
+        (marker) => marker.id === selectedMarkerId
+      );
+
       if (selectedMarker) {
-        const position = new window.kakao.maps.LatLng(selectedMarker.lat, selectedMarker.lng);
+        const position = new window.kakao.maps.LatLng(
+          selectedMarker.lat,
+          selectedMarker.lng
+        );
         const map = mapInstanceRef.current;
-        
+
         console.log(`선택 전 지도 줌 레벨: ${map.getLevel()}`);
-        
+
         // 줌 레벨 설정 (더 가깝게 보기 위해)
         // 중요: 숫자가 작을수록 더 확대됨 (1-14 범위)
-        map.setLevel(3, {animate: true});
-        
+        map.setLevel(3, { animate: true });
+
         // 지도 중심을 선택된 마커 위치로 부드럽게 이동
         map.panTo(position);
-        
+
         console.log(`선택된 마커로 지도 이동 후 줌 레벨: ${map.getLevel()}`);
-        console.log(`선택된 마커로 지도 이동: ${selectedMarker.name || `마커 ${selectedMarker.id}`}`);
+        console.log(
+          `선택된 마커로 지도 이동: ${
+            selectedMarker.name || `마커 ${selectedMarker.id}`
+          }`
+        );
       } else {
         console.warn(`선택된 마커 ID ${selectedMarkerId}를 찾을 수 없습니다.`);
       }
@@ -439,15 +468,15 @@ function KakaoMap({ markers = [], selectedMarkerId = null, onMarkerClick = () =>
       if (mapInstanceRef.current) {
         const map = mapInstanceRef.current;
         console.log("리사이즈 전 줌 레벨:", map.getLevel());
-        
+
         map.relayout();
-        
+
         // 레이아웃 재설정 후 줌 레벨 유지를 위한 명시적 설정
         const currentLevel = map.getLevel();
         if (currentLevel !== 3) {
           map.setLevel(3);
         }
-        
+
         console.log("윈도우 크기 변경으로 지도 레이아웃 재설정");
         console.log("리사이즈 후 줌 레벨:", map.getLevel());
       }

@@ -129,7 +129,7 @@ export default function Map() {
       lng: 126.6217,
       isOfficial: true,
       isPersonal: false,
-    }
+    },
   ];
   const [selectedMarkerId, setSelectedMarkerId] = useState<number | null>(null);
   const [isBookmarked, setBookmarked] = useState(false);
