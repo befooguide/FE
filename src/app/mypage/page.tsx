@@ -1,14 +1,33 @@
 // 마이 페이지
-"use client"
+"use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Navbar from "@/components/Navbar";
 import InfoArea from "./components/InfoArea";
 import CustomColumn from "@/components/CustomColumn";
 import List from "./components/List";
+import { useRouter } from "next/navigation";
+import useAuthStore from "@/store/authStore";
 
 export default function MyPage() {
+  const router = useRouter();
+  const { user } = useAuthStore();
+  const [hasMounted, setHasMounted] = useState(false);
+
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (hasMounted && user?.health_conditions.length === 0) {
+      router.replace("/mypage/health");
+    }
+  }, [user, router, hasMounted]);
+
+  // SSR에서는 아무 것도 렌더링하지 않음
+  if (!hasMounted) return null;
+
   return (
     <div>
       <Container>
@@ -26,21 +45,19 @@ export default function MyPage() {
       </Container>
       <Navbar />
     </div>
-  )
+  );
 }
-
-
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding: 0 1.5rem 5.05rem 1.5rem;
-`
+`;
 
 const Title = styled.div`
   font-size: ${(props) => props.theme.fontSizes.large};
-`
+`;
 
 const Delete = styled.div`
   width: 4rem;
@@ -48,4 +65,4 @@ const Delete = styled.div`
   color: ${(props) => props.theme.colors.neutralLight};
   font-size: ${(props) => props.theme.fontSizes.medium};
   border-bottom: 2px solid ${(props) => props.theme.colors.neutralLight};
-`
+`;

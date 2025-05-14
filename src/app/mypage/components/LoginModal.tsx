@@ -41,7 +41,7 @@ export default function LoginModal() {
         <Title>로그인 후 더 많은 기능을 <br/> 활용하실 수 있습니다.</Title>
         <SubTitle>로그아웃 시 기능이 제한됩니다.</SubTitle>
       </CustomColumn>
-      <Button text="카카오로 로그인하기" backgroundcolor="#FEE500" color="#191600" icon="/icons/kakao.svg" onClick={handleKakaoLogin}/>
+      <Button text="카카오로 로그인하기" $backgroundcolor="#FEE500" color="#191600" icon="/icons/kakao.svg" onClick={handleKakaoLogin}/>
       {error && <p className="error-message">{error}</p>}
     </Container>
   )

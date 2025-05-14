@@ -33,7 +33,7 @@ export default function Review() {
         <RestaurantCard name="식당 이름" location="위치" time="영업 시간"/>
       </CustomColumn>
       <div style={{ marginTop: "4.5rem" }}>
-        <Button text="평가 수정하기" backgroundcolor={theme.colors.primary} color="#ffffff"/>
+        <Button text="평가 수정하기" $backgroundcolor={theme.colors.primary} color="#ffffff"/>
         </div>
     </Container>
   )
