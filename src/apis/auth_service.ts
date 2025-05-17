@@ -1,31 +1,57 @@
-import axiosInstance from '@/apis/axiosInstance';
+import axiosInstance from './axiosInstance';
+import { AxiosResponse } from 'axios';
 
-// 인증 관련 API 모듈
-const authService = {
+interface UserData {
+  user_id: string;
+  username: string;
+  nickname: string;
+  health_conditions: string[];
+  allergies: string[];
+}
 
-  // 카카오 로그인
-  checkKakaoLogin: async () => {
-    const response = await axiosInstance.get('/login/kakao');
-    return response.data;
-  },
-
-  // 로그아웃
-  logout: async () => {
-    const response = await axiosInstance.post('/logout');
-    return response.data;
-  },
-
-  // 프로필 조회
-  getCurrentUser: async () => {
-    const response = await axiosInstance.get('/users/profile');
-    return response.data;
-  },
-
-  // 토큰 유효성 검사
-  // checkAuth: async () => {
-  //   const response = await axiosInstance.get('/auth/check');
-  //   return response.data;
-  // }
+// 로그인 후, URL에서 토큰을 추출하고 세션 스토리지에 저장
+export const handleTokenFromUrl = (url: string) => {
+  const urlParams = new URLSearchParams(url);
+  const token = urlParams.get('token');
+  
+  if (token) {
+    sessionStorage.setItem('access_token', token);
+  }
 };
 
-export default authService;
+// 카카오 로그인 상태 확인
+export const checkKakaoLogin = async (): Promise<UserData> => {
+  try {
+    const response: AxiosResponse<UserData> = await axiosInstance.get('/auth/me'); 
+    return response.data;
+  } catch (error) {
+    throw new Error('로그인 상태를 확인할 수 없습니다.');
+  }
+};
+
+// 현재 사용자 정보 조회
+export const getCurrentUser = async (): Promise<AxiosResponse<UserData>> => { 
+  try {
+    const response: AxiosResponse<UserData> = await axiosInstance.get('/user/profile');
+    return response;
+  } catch (error) {
+    throw new Error('사용자 정보를 불러오는 중 오류가 발생했습니다.');
+  }
+};
+
+// 로그아웃
+export const logout = async () => {
+  try {
+    await axiosInstance.post('/auth/logout'); 
+    sessionStorage.removeItem('access_token');
+  } catch (error) {
+    throw new Error('로그아웃 중 오류가 발생했습니다.');
+  }
+};
+
+export default {
+  handleTokenFromUrl,
+  checkKakaoLogin,
+  getCurrentUser,
+  logout,
+};

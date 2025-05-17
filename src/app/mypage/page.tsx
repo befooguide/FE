@@ -10,9 +10,10 @@ import List from "./components/List";
 import { useRouter } from "next/navigation";
 import useAuthStore from "@/store/authStore";
 
+
 export default function MyPage() {
   const router = useRouter();
-  const { user } = useAuthStore();
+  const { user, checkLoginStatus } = useAuthStore();
   const [hasMounted, setHasMounted] = useState(false);
 
   useEffect(() => {
@@ -20,10 +21,19 @@ export default function MyPage() {
   }, []);
 
   useEffect(() => {
-    if (hasMounted && user?.health_conditions.length === 0) {
-      router.replace("/mypage/health");
+    const verifyLoginStatus = async () => {
+      const isLoggedIn = await checkLoginStatus();
+      if (!isLoggedIn) {
+        router.push('/mypage/login');
+      } else if (user?.health_conditions.length === 0) {
+        router.replace("/mypage/health");
+      }
+    };
+
+    if (hasMounted) {
+      verifyLoginStatus();
     }
-  }, [user, router, hasMounted]);
+  }, [user, router, hasMounted, checkLoginStatus]);
 
   // SSR에서는 아무 것도 렌더링하지 않음
   if (!hasMounted) return null;
@@ -47,6 +57,7 @@ export default function MyPage() {
     </div>
   );
 }
+
 
 const Container = styled.div`
   display: flex;

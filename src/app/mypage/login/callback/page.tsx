@@ -1,21 +1,30 @@
 "use client";
 
 import React, { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import useAuthStore from '@/store/authStore';
 import Button from '@/components/Button';
 import styled from 'styled-components';
 
 export default function Callback() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const { checkLoginStatus, isLoading, error } = useAuthStore();
 
   useEffect(() => {
+    const token = searchParams.get("token");
+
+    if (token) {
+      sessionStorage.setItem("access_token", token); 
+    }
+
     const verifyLogin = async () => {
       try {
         const success = await checkLoginStatus();
         if (!success) {
           router.push('/mypage/login');
+        } else {
+          router.push('/mypage');
         }
       } catch (err) {
         console.error('로그인 상태 확인 중 오류 발생:', err);
@@ -23,8 +32,8 @@ export default function Callback() {
       }
     };
 
-    verifyLogin();
-  }, [checkLoginStatus, router]);
+        verifyLogin();
+  }, [checkLoginStatus, router, searchParams]);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
