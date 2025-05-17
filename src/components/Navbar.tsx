@@ -1,61 +1,51 @@
-"use client"
+"use client";
 
-import React from 'react';
-import styled from 'styled-components';
-import Image from 'next/image';
+import React from "react";
+import styled from "styled-components";
+import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 
 const NavBar: React.FC = () => {
   const router = useRouter();
   const pathname = usePathname();
 
-  const getActiveIcon = (path: string) => {
-    return pathname?.startsWith(path);
-  };
+  const getActiveIcon = (path: string) => pathname?.startsWith(path);
 
   const handleNavigation = (path: string) => {
+    if (path === "/mypage") {
+      const token = sessionStorage.getItem("access_token");
+      if (!token) {
+        router.push("/mypage/login");
+        return;
+      }
+    }
     router.push(path);
   };
 
   return (
     <Nav>
-      <IconContainer 
-        $active={getActiveIcon("/home")}
-        onClick={() => handleNavigation('/home')}
-      >
+      <IconContainer $active={getActiveIcon("/home")} onClick={() => handleNavigation("/home")}>
         <Image src="/icons/home.svg" alt="Home" width={40} height={40} />
-        {getActiveIcon('/home') && <Underline />}
+        {getActiveIcon("/home") && <Underline />}
       </IconContainer>
 
-      <IconContainer 
-        $active={getActiveIcon('/map')}
-        onClick={() => handleNavigation('/map')}
-      >
+      <IconContainer $active={getActiveIcon("/map")} onClick={() => handleNavigation("/map")}>
         <Image src="/icons/map.svg" alt="Map" width={40} height={40} />
-        {getActiveIcon('/map') && <Underline />}
+        {getActiveIcon("/map") && <Underline />}
       </IconContainer>
 
-      <IconContainer 
-        $active={getActiveIcon('/guide/post')}
-        onClick={() => handleNavigation('/guide/post')}
-      >
+      <IconContainer $active={getActiveIcon("/guide/post")} onClick={() => handleNavigation("/guide/post")}>
         <Image src="/icons/plus.svg" alt="Plus" width={38} height={38} />
       </IconContainer>
 
-      <IconContainer 
-        $active={getActiveIcon('/archive')}
-        onClick={() => handleNavigation('/archive')}
-      >
+      <IconContainer $active={getActiveIcon("/archive")} onClick={() => handleNavigation("/archive")}>
         <Image src="/icons/saved.svg" alt="Saved" width={40} height={40} />
-        {getActiveIcon('/archive') && <Underline />}
-      </IconContainer> 
+        {getActiveIcon("/archive") && <Underline />}
+      </IconContainer>
 
-      <IconContainer 
-        $active={getActiveIcon('/mypage')}
-        onClick={() => handleNavigation('/mypage')}
-      >
+      <IconContainer $active={getActiveIcon("/mypage")} onClick={() => handleNavigation("/mypage")}>
         <Image src="/icons/user.svg" alt="User" width={17} height={17} />
-        {getActiveIcon('/mypage') && <Underline />}
+        {getActiveIcon("/mypage") && <Underline />}
       </IconContainer>
     </Nav>
   );
@@ -85,7 +75,7 @@ const IconContainer = styled.div<IconContainerProps>`
   justify-content: center;
   align-items: center;
   position: relative;
-  flex-direction: ${(props) => (props.$active ? 'column' : 'row')};
+  flex-direction: ${(props) => (props.$active ? "column" : "row")};
   cursor: pointer;
 
   &:nth-child(1),

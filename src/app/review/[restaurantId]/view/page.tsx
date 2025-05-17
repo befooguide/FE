@@ -2,17 +2,32 @@
 
 "use client"
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { theme } from "@/styles/theme";
 import CustomColumn from "@/components/CustomColumn";
-import StarWithLabel from "../../components/StarWithLabel";
+// import StarWithLabel from "../../components/StarWithLabel";
 import Button from "@/components/Button";
 import Chip from "@/components/Chip";
-import RestaurantCard from "@/components/RestaurantCard";
+// import RestaurantCard from "@/components/RestaurantCard";
+
+import dynamic from 'next/dynamic';
+
+const StarWithLabel = dynamic(() => import('../../components/StarWithLabel'), { ssr: false });
+const RestaurantCard = dynamic(() => import('@/components/RestaurantCard'), { ssr: false });
+
 
 
 export default function Review() {
+  const [hasMounted, setHasMounted] = useState(false);
+
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
+
+  if (!hasMounted) return null;
+
+
   return (
     <Container>
       <Title>식당 이름에 대한 내 평가</Title>
@@ -33,7 +48,7 @@ export default function Review() {
         <RestaurantCard name="식당 이름" location="위치" time="영업 시간"/>
       </CustomColumn>
       <div style={{ marginTop: "4.5rem" }}>
-        <Button text="평가 수정하기" backgroundcolor={theme.colors.primary} color="#ffffff"/>
+        <Button text="평가 수정하기" $backgroundcolor={theme.colors.primary} color="#ffffff"/>
         </div>
     </Container>
   )

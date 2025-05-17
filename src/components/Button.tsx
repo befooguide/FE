@@ -6,14 +6,14 @@ import styled from "styled-components";
 interface ButtonProps {
   text: string;
   color?: string;
-  backgroundcolor?: string;
+  $backgroundcolor?: string;
   icon?: string;
   onClick?: () => void; 
 }
 
-const Button: React.FC<ButtonProps> = ({ text, color, backgroundcolor, icon, onClick }) => {
+const Button: React.FC<ButtonProps> = ({ text, color, $backgroundcolor, icon, onClick }) => {
   return (
-    <ButtonContainer backgroundcolor={backgroundcolor} onClick={onClick}>
+    <ButtonContainer $backgroundcolor={$backgroundcolor} onClick={onClick}>
       {icon && <Icon src={icon} alt="icon" />}
       <Text color={color}>{text}</Text>
     </ButtonContainer>
@@ -23,7 +23,7 @@ const Button: React.FC<ButtonProps> = ({ text, color, backgroundcolor, icon, onC
 export default Button;
 
 
-const ButtonContainer = styled.div<{backgroundcolor?: string}>`
+const ButtonContainer = styled.div<{$backgroundcolor?: string}>`
   display: flex;
   width: 21.375rem;
   height: 3.375rem;
@@ -33,7 +33,7 @@ const ButtonContainer = styled.div<{backgroundcolor?: string}>`
   gap: 1.25rem;
   flex-shrink: 0;
   border-radius: 2.125rem;
-  background-color: ${(props) => props.backgroundcolor || props.theme.colors.neutralLight};
+  background-color: ${(props) => props.$backgroundcolor || props.theme.colors.neutralLight};
   cursor: pointer; 
 `;
 
